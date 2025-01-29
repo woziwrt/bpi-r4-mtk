@@ -1,0 +1,32 @@
+--- agg-tx.c.orig	2025-01-25 10:12:43.374969290 +0100
++++ agg-tx.c.patch	2025-01-25 10:24:07.000000000 +0100
+@@ -58,23 +58,25 @@
+  * complete.
+  */
+ 
+-static void ieee80211_send_addba_request(struct ieee80211_sub_if_data *sdata,
+-					 const u8 *da, u16 tid,
++static void ieee80211_send_addba_request(struct sta_info *sta, u16 tid,
+ 					 u8 dialog_token, u16 start_seq_num,
+ 					 u16 agg_size, u16 timeout)
+ {
++	struct ieee80211_sub_if_data *sdata = sta->sdata;
+ 	struct ieee80211_local *local = sdata->local;
+ 	struct sk_buff *skb;
+ 	struct ieee80211_mgmt *mgmt;
+ 	u16 capab;
+ 
+-	skb = dev_alloc_skb(sizeof(*mgmt) + local->hw.extra_tx_headroom);
++	skb = dev_alloc_skb(sizeof(*mgmt) +
++			    2 + sizeof(struct ieee80211_addba_ext_ie) +
++			    local->hw.extra_tx_headroom)
+ 
+ 	if (!skb)
+ 		return;
+ 
+ 	skb_reserve(skb, local->hw.extra_tx_headroom);
+-	mgmt = ieee80211_mgmt_ba(skb, da, sdata);
++	mgmt = ieee80211_mgmt_ba(skb, sta->sta.addr, sdata);
+ 
+ 	skb_put(skb, 1 + sizeof(mgmt->u.action.u.addba_req));
+ 
