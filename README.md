@@ -1,2 +1,8 @@
-# bpi-r4-mtk
- bpi-r4 openwrt 
+
+./build-mlo-beta2-version.sh
+
+after successful completion of the script
+
+cd openwrt
+make menuconfig
+make -j1 ......
