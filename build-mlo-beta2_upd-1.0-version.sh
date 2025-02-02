@@ -26,14 +26,15 @@ rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/
 \cp -r my_files/0006-arch-arm64-dts-mt7988a-add-adma-intrrupts.patch mtk-openwrt-feeds/autobuild/unified/global/24.10/patches-base/
 \cp -r my_files/mediatek/*.* mtk-openwrt-feeds/autobuild/unified/global/24.10/files/target/linux/mediatek/files-6.6/drivers/net/ethernet/mediatek/
 \cp -r my_files/999-3000-netfilter-add-bridging-support-to-xt_FLOWOFFLOAD.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/target/linux/mediatek/patches-6.6/999-3000-netfilter-add-bridging-support-to-xt_FLOWOFFLOAD.patch
+\cp -r my_files/w-mt7988a.dtsi openwrt/target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/mt7988a.dtsi
 
 sed -i 's/CONFIG_PACKAGE_perf=y/# CONFIG_PACKAGE_perf is not set/' mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/defconfig
 sed -i 's/CONFIG_PACKAGE_perf=y/# CONFIG_PACKAGE_perf is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7988_wifi7_mac80211_mlo/.config
 sed -i 's/CONFIG_PACKAGE_perf=y/# CONFIG_PACKAGE_perf is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7986_mac80211/.config
 
-# sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7988_wifi7_mac80211_mlo/.config
-# sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7981_mac80211/.config
-# sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7986_mac80211/.config
+sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7988_wifi7_mac80211_mlo/.config
+sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7981_mac80211/.config
+sed -i 's/CONFIG_PACKAGE_kmod-thermal=y/# CONFIG_PACKAGE_kmod-thermal is not set/' mtk-openwrt-feeds/autobuild/autobuild_5.4_mac80211_release/mt7986_mac80211/.config
 
 cd openwrt
 bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-bpi-r4 log_file=make  || true
